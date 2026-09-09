@@ -38,22 +38,19 @@ const server = http.createServer((req, res) => {
 
 
         // ========================================
-        // TODO: Task 2 - Route Mapping
+        // T2 - Route Mapping
         // ========================================
-        // Map URLs to HTML files in the public folder
-        // Complete the if-else chain below:
+        // Mapped URLs to HTML files in the public folder
+        // Completed the if-else chain below:
         
         let filePath;
         if (req.url === '/') {
             // Home page
             filePath = path.join(PUBLIC_DIR, 'index.html');
         } 
-        // TODO: Add 'else if' for '/about' -> 'about.html'
-        // Example: else if (req.url === '/about') { filePath = path.join(PUBLIC_DIR, 'about.html'); }
+        else if (req.url === '/about') { filePath = path.join(PUBLIC_DIR, 'about.html'); }
         
-        
-        // TODO: Add 'else if' for '/contact' -> 'contact.html'
-        
+        else if (req.url === '/contact') { filePath = path.join(PUBLIC_DIR, 'contact.html'); }
         
         // ========================================
         // TODO: Task 4 - Serve CSS Files
@@ -165,19 +162,16 @@ function handleServerError(res, error) {
 
 
 // ========================================
-// TODO: Task 1 - Start the Server
+// T1 - Started the Server
 // ========================================
 // Start listening for requests on PORT 3000
 server.listen(PORT, () => {
-    // TODO: Log a message to indicate the server is running
-    // Example: console.log(`Server is running on http://localhost:${PORT}`);
-    
-    
-    // Bonus: You can also log the available routes for better user experience
-    /*
+    console.log(`Server is running at http://localhost:${PORT}/`);
+
+// Check this later
     console.log('Available routes:');
     console.log('  GET /              -> index.html');
     console.log('  GET /about         -> about.html');
     console.log('  GET /contact       -> contact.html');
-    */
+
 });
