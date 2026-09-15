@@ -1,3 +1,7 @@
+// notes for myself:
+// console.log(path.parse(__filename));
+// const x = require("./choose_a_file.js");
+
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
@@ -130,6 +134,7 @@ function handle404(res) {
     // If successful: Send 404 status with the HTML content
     // If failed: Send 404 status with plain text "404 - Page Not Found"
     
+
     // Example structure:
     /*
     fs.readFile(notFoundPath, (err, content) => {
@@ -165,10 +170,12 @@ function handleServerError(res, error) {
 // T1 - Started the Server
 // ========================================
 // Start listening for requests on PORT 3000
+
 server.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/`);
-
-// Check this later
+//Logging a message
+    console.log('Trying to send a message, hello?\n');
+    
     console.log('Available routes:');
     console.log('  GET /              -> index.html');
     console.log('  GET /about         -> about.html');
