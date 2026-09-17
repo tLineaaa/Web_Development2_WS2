@@ -18,6 +18,7 @@ const MIME_TYPES = {
 };
 
 // Create HTTP server
+// Why there is no "function" before (req, res)?
 const server = http.createServer((req, res) => {
     console.log(`${req.method} ${req.url}`);
 
@@ -92,7 +93,6 @@ const server = http.createServer((req, res) => {
         
         // Step 2: Get the content type from MIME_TYPES object
         const contentType = MIME_TYPES[extname] || 'text/html';
-
         // Step 3: Read the file
         fs.readFile(filePath, (err, content) => {
             if (err) {
@@ -117,6 +117,7 @@ const server = http.createServer((req, res) => {
         // Catch any unexpected errors
         handleServerError(res, error);
     }
+    res.end(); // ?
 });
 
 
@@ -126,17 +127,12 @@ const server = http.createServer((req, res) => {
 
 // Function to handle 404 errors (Page Not Found)
 function handle404(res) {
-    // Step 1: Create the path to 404.html
+    // Path to 404.html
     const notFoundPath = path.join(PUBLIC_DIR, '404.html');
     
-    // Step 2: Try to read and serve the 404.html file
-    // TODO: Use fs.readFile() to read notFoundPath
-    // If successful: Send 404 status with the HTML content
-    // If failed: Send 404 status with plain text "404 - Page Not Found"
-    
-
-    // Example structure:
-    /*
+    // Tries to read and serve the 404.html file
+    // If successful: Sends 404 status with the HTML content
+    // If fails: Sends 404 status with text "404 - Page Not Found"
     fs.readFile(notFoundPath, (err, content) => {
         if (err) {
             res.writeHead(404, { 'Content-Type': 'text/plain' });
@@ -146,14 +142,14 @@ function handle404(res) {
             res.end(content, 'utf-8');
         }
     });
-    */
 }
 
 // Function to handle 500 errors (Server Error)
 function handleServerError(res, error) {
     // Step 1: Log the error to the console
     // TODO: Use console.error() to log the error
-    
+    console.log('Server Error:', error);
+    console.error('Server Error:', error);
     
     // Step 2: Create the path to 500.html
     const serverErrorPath = path.join(PUBLIC_DIR, '500.html');
@@ -162,6 +158,15 @@ function handleServerError(res, error) {
     // TODO: Similar to handle404, read serverErrorPath and serve it
     // If successful: Send 500 status with the HTML content
     // If failed: Send 500 status with plain text "500 - Internal Server Error"
+        fs.readFile(serverErrorPath, (err, content) => {
+        if (err) {
+            res.writeHead(500, { 'Content-Type': 'text/plain' });
+            res.end('500 - Internal Server Error');
+        } else {
+            res.writeHead(500, { 'Content-Type': 'text/html' });
+            res.end(content, 'utf-8');
+        }
+    });
     
 }
 
@@ -169,7 +174,7 @@ function handleServerError(res, error) {
 // ========================================
 // T1 - Started the Server
 // ========================================
-// Start listening for requests on PORT 3000
+// Starts listening for requests on PORT 3000
 
 server.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/`);
