@@ -63,7 +63,6 @@ const server = http.createServer((req, res) => {
         // Handle requests for CSS files from /styles/ folder
         // Uncomment and complete the security check:
         
-        /*
         else if (req.url.startsWith('/styles/')) {
             filePath = path.join(PUBLIC_DIR, req.url);
             
@@ -74,7 +73,7 @@ const server = http.createServer((req, res) => {
                 return;
             }
         }
-        */
+
         else {
             // No route matched -> 404
             handle404(res);
@@ -108,7 +107,7 @@ const server = http.createServer((req, res) => {
                 // Use res.writeHead() to set status code 200 and Content-Type header
                 // Use res.end() to send the file content
                 
-                res.writeHead(200, { 'Content-Type': contentType });
+        res.writeHead(200, { 'Content-Type': contentType });
                 res.end(content, 'utf-8');
             }
         });
@@ -117,7 +116,6 @@ const server = http.createServer((req, res) => {
         // Catch any unexpected errors
         handleServerError(res, error);
     }
-    res.end(); // ?
 });
 
 
@@ -148,7 +146,6 @@ function handle404(res) {
 function handleServerError(res, error) {
     // Step 1: Log the error to the console
     // TODO: Use console.error() to log the error
-    console.log('Server Error:', error);
     console.error('Server Error:', error);
     
     // Step 2: Create the path to 500.html
